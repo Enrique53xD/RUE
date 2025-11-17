@@ -243,11 +243,7 @@ def page_not_found(e):
         lang = 'es'
     else:
         lang = 'en'
-    return jsonify(
-        message=select_error(lang),
-        status="error",
-        error="404 Not Found"
-    ), 404
+    return select_error(lang), 404
 
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 8080)))
