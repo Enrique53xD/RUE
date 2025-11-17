@@ -1,0 +1,14 @@
+# macOS specific
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.env
+
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+*$py.class
