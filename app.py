@@ -1,5 +1,5 @@
 import os, random
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
@@ -17,7 +17,7 @@ def select_error(lang):
             "ID-10-T error detected.",
             "PEBKAC (Problem Exists Between Keyboard And Chair).",
             "Error: The developer is sleeping.",
-            "It works on my machine ¯\_(ツ)_/¯.",
+            r"It works on my machine ¯\_(ツ)_/¯.",
             "Git merge conflict in your soul.",
             "Reality.exe has encountered a problem.",
             "Buffer overflow: Too many feelings.",
@@ -234,6 +234,20 @@ def random_unhelpful_error_es():
 @app.route("/")
 def get_home():
   return "The Random Unhelpful Error (RUE) server is running."
+
+@app.errorhandler(404)
+def page_not_found(e):
+    # Get the best language match from the browser
+    lang = request.accept_languages.best_match(['en', 'es'], default='en')
+    if lang == 'es':
+        lang = 'es'
+    else:
+        lang = 'en'
+    return jsonify(
+        message=select_error(lang),
+        status="error",
+        error="404 Not Found"
+    ), 404
 
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 8080)))
