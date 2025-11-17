@@ -233,7 +233,7 @@ def random_unhelpful_error_es():
 
 @app.route("/")
 def get_home():
-  return "The Random Unhelpful Error (RUE) server is running."
+  return "The Random Unhelpful Error (RUE) server is running. \nUse /en for English errors or /es for Spanish errors."
 
 @app.errorhandler(404)
 def page_not_found(e):
